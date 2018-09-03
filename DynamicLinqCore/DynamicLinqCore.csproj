@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Authors>Jochen Grün</Authors>
+    <Copyright></Copyright>
+    <PackageLicenseUrl>https://github.com/Useurmind/DynamicLinqCore/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/Useurmind/DynamicLinqCore.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Useurmind/DynamicLinqCore.git</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.0\DynamicLinqCore.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
