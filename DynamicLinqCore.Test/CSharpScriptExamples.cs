@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -37,7 +38,7 @@ namespace DynamicLinqCore.Test
         }
 
         [Fact]
-        public void PredicateOnCustomObject()
+        public void PredicateOnCustomObjectAsFunc()
         {
             var myEntity = new MyEntity() {Id = 1, Name = "Erich"};
             var myEntity2 = new MyEntity() { Id = 1, Name = "Stefan" };
@@ -48,6 +49,29 @@ namespace DynamicLinqCore.Test
                 ScriptOptions.Default
                              .WithReferences(typeof(MyEntity).Assembly, typeof(Func<,>).Assembly)
                              .WithImports("System", typeof(MyEntity).Namespace)).Result;
+
+            Assert.True(testEntity(myEntity));
+            Assert.False(testEntity(myEntity2));
+            Assert.Equal(testEntity(myEntity), testEntityCompiled(myEntity));
+            Assert.Equal(testEntity(myEntity2), testEntityCompiled(myEntity2));
+        }
+
+
+
+        [Fact]
+        public void PredicateOnCustomObjectAsExpression()
+        {
+            var myEntity = new MyEntity() {Id = 1, Name = "Erich"};
+            var myEntity2 = new MyEntity() { Id = 1, Name = "Stefan" };
+
+            Func<MyEntity, bool> testEntity = e => e.Name == "Erich";
+            var testEntityExpression = (Expression<Func<MyEntity, bool>>)CSharpScript.EvaluateAsync(
+                "(Expression<Func<CSharpScriptExamples.MyEntity, bool>>)(e => e.Name == \"Erich\")",
+                ScriptOptions.Default
+                             .WithReferences(typeof(MyEntity).Assembly, typeof(Func<,>).Assembly, typeof(Expression).Assembly)
+                             .WithImports("System", "System.Linq.Expressions", typeof(MyEntity).Namespace)).Result;
+
+            var testEntityCompiled = testEntityExpression.Compile();
 
             Assert.True(testEntity(myEntity));
             Assert.False(testEntity(myEntity2));

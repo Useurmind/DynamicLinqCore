@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PackageLicenseUrl>https://github.com/Useurmind/DynamicLinqCore/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Useurmind/DynamicLinqCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Useurmind/DynamicLinqCore.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>Jochen Grün</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DynamicLinqCore\DynamicLinqCore.csproj" />
+  </ItemGroup>
+
+</Project>

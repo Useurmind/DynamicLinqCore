@@ -7,20 +7,18 @@ namespace DynamicLinqCore
 {
     public static class EnumerableExtensions
     {
-        public static IEnumerable<T> Where<T>(this IEnumerable<T> source, string predicate, params object[] values)
+        public static IEnumerable<T> Where<T>(this IEnumerable<T> source, string predicate)
         {
             Ensure.ArgumentNotNull(source, "source");
-            Ensure.ArgumentNotNull(predicate, "predicate");
 
-            return source.AsQueryable().Where(predicate, values);
+            return source.AsQueryable().Where(predicate);
         }
 
-        public static IEnumerable Where(this IEnumerable source, string predicate, params object[] values)
+        public static IEnumerable Where(this IEnumerable source, string predicate)
         {
             Ensure.ArgumentNotNull(source, "source");
-            Ensure.ArgumentNotNull(predicate, "predicate");
 
-            return source.AsQueryable().Where(predicate, values);
+            return source.AsQueryable().Where(predicate);
         }
 
         public static IEnumerable Select(this IEnumerable source, string selector, params object[] values)
@@ -31,20 +29,32 @@ namespace DynamicLinqCore
             return source.AsQueryable().Select(selector, values);
         }
 
-        public static IEnumerable<T> OrderBy<T>(this IEnumerable<T> source, string ordering, params object[] values)
+        public static IEnumerable<T> OrderBy<T>(this IEnumerable<T> source, string ordering, Type orderedPropertyType)
         {
             Ensure.ArgumentNotNull(source, "source");
-            Ensure.ArgumentNotNull(ordering, "ordering");
 
-            return source.AsQueryable().OrderBy(ordering, values);
+            return source.AsQueryable().OrderBy(ordering, orderedPropertyType);
         }
 
-        public static IEnumerable OrderBy(this IEnumerable source, string ordering, params object[] values)
+        public static IEnumerable OrderByDescending(this IEnumerable source, string ordering, Type orderedPropertyType)
         {
             Ensure.ArgumentNotNull(source, "source");
-            Ensure.ArgumentNotNull(ordering, "ordering");
 
-            return source.AsQueryable().OrderBy(ordering, values);
+            return source.AsQueryable().OrderByDescending(ordering, orderedPropertyType);
+        }
+
+        public static IEnumerable<T> OrderByDescending<T>(this IEnumerable<T> source, string ordering, Type orderedPropertyType)
+        {
+            Ensure.ArgumentNotNull(source, "source");
+
+            return source.AsQueryable().OrderByDescending(ordering, orderedPropertyType);
+        }
+
+        public static IEnumerable OrderBy(this IEnumerable source, string ordering, Type orderedPropertyType)
+        {
+            Ensure.ArgumentNotNull(source, "source");
+
+            return source.AsQueryable().OrderBy(ordering, orderedPropertyType);
         }
 
         public static IEnumerable Take(this IEnumerable source, int count)

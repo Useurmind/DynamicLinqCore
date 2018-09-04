@@ -5,6 +5,9 @@ using System.Text;
 
 namespace DynamicLinqCore
 {
+    /// <summary>
+    /// Helper to check boundary conditions.
+    /// </summary>
     public static class Ensure
     {
         /// <summary>
