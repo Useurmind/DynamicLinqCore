@@ -11,6 +11,34 @@ using System.Xml.Schema;
 
 namespace DynamicLinqCore
 {
+    /// <summary>
+    /// Extension of <see cref="IQueryable"/> with same methods as <see cref="IQueryable{T}"/> only with strings instead of real expressions.
+    /// This allows for much easier reflection based code, calling Linq based frameworks like entity framework.
+    ///
+    /// TODO:
+    /// - AnyAsync with/no predicate
+    /// - AllAsync
+    /// - CountAsync with/no predicate
+    /// - LongCountAsync with/no predicate
+    /// - FirstAsync with/no predicate
+    /// - FirstOrDefaultAsync with/no predicate
+    /// - LastAsync with/no predicate
+    /// - LastOrDefaultAsync with/no predicate
+    /// - SingleAsync with/no predicate
+    /// - SingleOrDefaultAsync with/no predicate
+    /// - MinAsync with/no selector
+    /// - MaxAsync with/no selector
+    /// - SumAsync with/no selector, decimal,int,long,double,float(?)
+    /// - AverageAsync with/no selector, decimal,int,long,double,float(?)
+    /// - ContainsAsync
+    /// - ToListAsync
+    /// - IgnoreQueryFilters
+    /// - AsNoTracking/AsTracking
+    /// - WithTag
+    /// - Load/LoadAsync
+    /// - ToDictionaryAsync keySelector, elementSelector?, comparer?
+    /// - ForEachAsync
+    /// </summary>
     public static class QueryableExtensions
     {
         public static IQueryable<T> Where<T>(this IQueryable<T> source, string predicate)
