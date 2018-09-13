@@ -113,9 +113,19 @@ namespace DynamicLinqCore
             }
 
             // we support single level of member classes
-            return type.DeclaringType != null
+            var typeName = type.DeclaringType != null
                 ? $"{type.DeclaringType.Name}.{type.Name}"
                 : type.Name;
+
+            // if the type is nullable we need to compose the correct type from the generic type arguments
+            if (typeName == "Nullable`1")
+            {
+                typeName = typeName.Replace(
+                    "`1",
+                    $"<{type.GenericTypeArguments[0].FullName}>");
+            }
+
+            return typeName;
         }
     }
 }

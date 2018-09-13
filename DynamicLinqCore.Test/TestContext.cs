@@ -11,6 +11,8 @@ namespace DynamicLinqCore.Test
     {
         public int Id { get; set; }
 
+        public int? NullableInt { get; set; }
+
         public string Name { get; set; }
 
         public TestEntity2 ChildEntity { get; set; }
@@ -103,6 +105,7 @@ namespace DynamicLinqCore.Test
                 new TestEntity1()
                 {
                     Id = 1,
+                    NullableInt = 2,
                     Name = "John",
                     ChildEntity = child1
                 });
@@ -119,6 +122,7 @@ namespace DynamicLinqCore.Test
                 new TestEntity1()
                 {
                     Id = 3,
+                    NullableInt = 4,
                     Name = "Lea"
                 });
 

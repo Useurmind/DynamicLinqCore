@@ -161,5 +161,29 @@ namespace DynamicLinqCore.Test
             results.First().Name.Should().Be("James");
             results.First().ChildEntity.Should().BeNull();
         }
+
+        [Fact]
+        public void DbContextWhereSkipAndTakeQueryWithNullableTypeWorks()
+        {
+            TestContext.EnsureSeed();
+
+            var dbContext = new TestContext();
+
+            var results = dbContext.TestEntity1s
+                                   .AsQueryable()
+                                   .Where("x => x.NullableInt > 1")
+                                   .OrderByDescending("x => x.NullableInt", typeof(int?))
+                                   .Skip(1)
+                                   .Take(1)
+                                   .ToArrayAsync()
+                                   .Result
+                                   .Cast<TestEntity1>()
+                                   .ToArray();
+
+            results.Length.Should().Be(1);
+            results.First().Id.Should().Be(1);
+            results.First().Name.Should().Be("John");
+            results.First().ChildEntity.Should().BeNull();
+        }
     }
 }

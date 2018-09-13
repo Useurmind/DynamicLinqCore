@@ -12,6 +12,8 @@ namespace DynamicLinqCore.Test
         {
             public int Id { get; set; }
 
+            public int? NullableInt { get; set; }
+
             public string Name { get; set; }
 
             public MyEntity ChildEntity { get; set; }
@@ -107,6 +109,33 @@ namespace DynamicLinqCore.Test
             var childChildEntity = parentEntity.ChildEntity.ChildEntity;
 
             Assert.Same(expressionCompiled(parentEntity), childChildEntity);
+        }
+
+        /// <summary>
+        /// Check that <see cref="CSharpScriptingExpressionParser.ParseLambdaAsync" /> can parse a path to a nullable
+        ///  int property.
+        /// </summary>
+        [Fact]
+        public void ParseLambdaAsync_ParsesNullableIntPathCorrectly()
+        {
+            var parser = new CSharpScriptingExpressionParser();
+
+            var expression = parser.ParseLambdaAsync<MyEntity, int?>("x => x.NullableInt")
+                                   .Result;
+            var expressionCompiled = expression.Compile();
+
+            var entity1 = new MyEntity()
+            {
+                NullableInt = 4
+            };
+
+            var entity2 = new MyEntity()
+            {
+                NullableInt = null
+            };
+
+            Assert.Equal(expressionCompiled(entity1), entity1.NullableInt);
+            Assert.Equal(expressionCompiled(entity2), entity2.NullableInt);
         }
     }
 }
