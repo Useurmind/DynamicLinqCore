@@ -121,6 +121,39 @@ namespace DynamicLinqCore
                     Expression.Quote(expression)));
         }
 
+        public static IQueryable<T> ThenBy<T>(this IQueryable<T> source, string ordering, Type orderedPropertyType)
+        {
+            return (IQueryable<T>)ThenBy((IQueryable)source, ordering, orderedPropertyType, null);
+        }
+
+        public static IQueryable<T> ThenBy<T>(this IQueryable<T> source, string ordering, Type orderedPropertyType, Type[] otherRequiredTypes)
+        {
+            return (IQueryable<T>)ThenBy((IQueryable)source, ordering, orderedPropertyType, otherRequiredTypes);
+        }
+
+        public static IQueryable ThenBy(this IQueryable source, string ordering, Type orderedPropertyType)
+        {
+            return ThenBy(source, ordering, orderedPropertyType, null);
+        }
+
+        public static IQueryable ThenBy(this IQueryable source, string ordering, Type orderedPropertyType, Type[] otherRequiredTypes)
+        {
+            Ensure.ArgumentNotNull(source, "source");
+            Ensure.ArgumentNotNull(ordering, "ordering");
+            Ensure.ArgumentNotNull(orderedPropertyType, "orderedPropertyType");
+
+            var parser = new CSharpScriptingExpressionParser();
+            var expression = parser.ParseLambdaAsync(source.ElementType, orderedPropertyType, ordering, otherRequiredTypes).Result;
+
+            return source.Provider.CreateQuery(
+                Expression.Call(
+                    typeof(Queryable),
+                    "ThenBy",
+                    new Type[] { source.ElementType, orderedPropertyType },
+                    source.Expression,
+                    Expression.Quote(expression)));
+        }
+
         public static IQueryable<T> OrderByDescending<T>(this IQueryable<T> source, string ordering, Type orderedPropertyType)
         {
             return (IQueryable<T>)OrderByDescending((IQueryable)source, ordering, orderedPropertyType, null);
@@ -149,6 +182,39 @@ namespace DynamicLinqCore
                 Expression.Call(
                     typeof(Queryable),
                     "OrderByDescending",
+                    new Type[] { source.ElementType, orderedPropertyType },
+                    source.Expression,
+                    Expression.Quote(expression)));
+        }
+
+        public static IQueryable<T> ThenByDescending<T>(this IQueryable<T> source, string ordering, Type orderedPropertyType)
+        {
+            return (IQueryable<T>)ThenByDescending((IQueryable)source, ordering, orderedPropertyType, null);
+        }
+
+        public static IQueryable<T> ThenByDescending<T>(this IQueryable<T> source, string ordering, Type orderedPropertyType, Type[] otherRequiredTypes)
+        {
+            return (IQueryable<T>)ThenByDescending((IQueryable)source, ordering, orderedPropertyType, otherRequiredTypes);
+        }
+
+        public static IQueryable ThenByDescending(this IQueryable source, string ordering, Type orderedPropertyType)
+        {
+            return ThenByDescending(source, ordering, orderedPropertyType, null);
+        }
+
+        public static IQueryable ThenByDescending(this IQueryable source, string ordering, Type orderedPropertyType, Type[] otherRequiredTypes)
+        {
+            Ensure.ArgumentNotNull(source, "source");
+            Ensure.ArgumentNotNull(ordering, "ordering");
+            Ensure.ArgumentNotNull(orderedPropertyType, "orderedPropertyType");
+
+            var parser = new CSharpScriptingExpressionParser();
+            var expression = parser.ParseLambdaAsync(source.ElementType, orderedPropertyType, ordering, otherRequiredTypes).Result;
+
+            return source.Provider.CreateQuery(
+                Expression.Call(
+                    typeof(Queryable),
+                    "ThenByDescending",
                     new Type[] { source.ElementType, orderedPropertyType },
                     source.Expression,
                     Expression.Quote(expression)));

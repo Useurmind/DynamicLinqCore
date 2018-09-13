@@ -13,3 +13,4 @@
 /DynamicLinqCore/bin/Release
 /DynamicLinqCore.EntityFramework/bin/Release
 /DynamicLinqCore.Test/bin/Release/netcoreapp2.1
+/DynamicLinqCore.EntityFramework/bin/Debug
