@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Jochen Grün</Authors>
     <Copyright></Copyright>
     <PackageLicenseUrl>https://github.com/Useurmind/DynamicLinqCore/blob/master/LICENSE</PackageLicenseUrl>
@@ -9,7 +9,7 @@
     <PackageProjectUrl>https://github.com/Useurmind/DynamicLinqCore</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.4</Version>
+    <Version>0.1.5</Version>
     <Description>Implements text based linq queries to IQueryable interface.</Description>
   </PropertyGroup>
 
